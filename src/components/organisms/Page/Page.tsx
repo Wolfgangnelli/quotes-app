@@ -1,16 +1,13 @@
-import React from 'react'
+import React from "react";
 
 interface Props {
-    children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const Page = (props: Props) => {
+  const { children } = props;
 
-    const { children } = props 
+  return <div>{children}</div>;
+};
 
-  return (
-    <div>{children}</div>
-  )
-}
-
-export default Page
+export default Page;
