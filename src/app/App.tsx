@@ -1,12 +1,19 @@
 import Routes from "../routes";
 import { Container } from "react-bootstrap";
+import { Header, Footer } from '../components/organisms';
 
 function App() {
   
   return (
-    <Container fluid="xl">
-      <Routes />
-    </Container>
+    <div>
+      <Header />
+      <Container fluid="xxl">
+        <main>
+          <Routes />
+        </main>
+      </Container>
+      <Footer />
+    </div>
   );
 }
 
