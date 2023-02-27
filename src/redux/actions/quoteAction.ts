@@ -1,10 +1,47 @@
-import { QuotesType } from '../../utilis/types';
-import { ADD_QUOTE_REQUEST, ADD_QUOTE_FAIL, ADD_QUOTE_SUCCESS } from './actionTypes';
+import { QuoteType } from '../../utilis/types';
+import { 
+    ADD_QUOTE_REQUEST, 
+    ADD_QUOTE_FAIL, 
+    ADD_QUOTE_SUCCESS,
+    GET_QUOTES_REQUEST,
+    GET_QUOTES_SUCCESS,
+    GET_QUOTES_FAIL,
+ } from './actionTypes';
 import { Dispatch } from 'redux';
 import fs from '../../config/firebase';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from 'firebase/firestore';
+import { v4 as uuidv4 } from 'uuid';
 
-export const addQuote = (quote: QuotesType) => async (dispatch: Dispatch) => {
+export const getQuotes = () => async (dispatch: Dispatch) => {
+    try {
+        dispatch({
+            type: GET_QUOTES_REQUEST
+        });
+
+        const queryQuotes = await getDocs(query(collection(fs, 'quotes'), orderBy('createdAt', 'desc')));
+
+        if(queryQuotes.docs.length > 0) {
+            const quotesArray: QuoteType[] = [];
+
+            queryQuotes.forEach((quote: any) => {
+                quotesArray.push(quote.data());
+            });
+
+            dispatch({
+                type: GET_QUOTES_SUCCESS,
+                payload: quotesArray
+            });
+        }
+
+    } catch (error) {
+        dispatch({
+            type: GET_QUOTES_FAIL,
+            payload: error
+        });
+    }
+};
+
+export const addQuote = (quote: QuoteType) => async (dispatch: Dispatch) => {
     try {
         dispatch({
             type: ADD_QUOTE_REQUEST
@@ -13,6 +50,8 @@ export const addQuote = (quote: QuotesType) => async (dispatch: Dispatch) => {
         await addDoc(collection(fs, 'quotes'), {
             text: quote.text,
             author: quote.author,
+            createdAt: serverTimestamp(),
+            id: uuidv4()
         });
 
         dispatch({

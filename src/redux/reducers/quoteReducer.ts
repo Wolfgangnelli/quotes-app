@@ -2,8 +2,11 @@ import {
     ADD_QUOTE_REQUEST, 
     ADD_QUOTE_SUCCESS,
     ADD_QUOTE_FAIL,
+    GET_QUOTES_REQUEST,
+    GET_QUOTES_SUCCESS,
+    GET_QUOTES_FAIL,
 } from '../actions/actionTypes';
-import { ActionType, QuotesType } from '../../utilis/types';
+import { ActionType, QuoteType } from '../../utilis/types';
 
 const initialState = {
         data: [],
@@ -19,12 +22,12 @@ export const quoteAddReducer = ( state = initialState, { type, payload }: Action
             };
         case ADD_QUOTE_SUCCESS:
             // check if quote already exist in the list
-            const existQuote = state.data?.find((quote: QuotesType) => quote.text.toLowerCase() === payload.text.toLowerCase() && quote.author?.toLowerCase() === payload.author.toLowerCase());
+            const existQuote = state.data?.find((quote: QuoteType) => quote.text.toLowerCase() === payload.text.toLowerCase() && quote.author?.toLowerCase() === payload.author.toLowerCase());
             
             if(existQuote) {
                 return {
                     ...state,
-                    data: state.data.map((quote: QuotesType) => quote.author?.toLowerCase() === payload.text.toLowerCase() && quote.author?.toLowerCase() === payload.author.toLowerCase() ? payload : quote)
+                    data: state.data.map((quote: QuoteType) => quote.author?.toLowerCase() === payload.text.toLowerCase() && quote.author?.toLowerCase() === payload.author.toLowerCase() ? payload : quote)
                 };
             } else {
                 return {
@@ -39,6 +42,29 @@ export const quoteAddReducer = ( state = initialState, { type, payload }: Action
                 error: payload
             };
 
+        default:
+            return state;
+    }
+};
+
+export const quotesReducer = (state = initialState, { type, payload}: ActionType) => {
+    switch (type) {
+        case GET_QUOTES_REQUEST:
+            return {
+                ...state,
+                loading: true
+            };
+        case GET_QUOTES_SUCCESS:
+            return {
+                loading: false,
+                data: payload
+            };
+        case GET_QUOTES_FAIL:
+            return {
+                loading: false,
+                error: payload
+            };
+    
         default:
             return state;
     }

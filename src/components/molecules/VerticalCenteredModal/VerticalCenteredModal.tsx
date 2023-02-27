@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { SuggestedQuotesType } from '../../../utilis/types';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { addQuote } from '../../../redux/actions/quoteAction';
+import { addQuote, getQuotes } from '../../../redux/actions/quoteAction';
 import './VerticalCenteredModal.scss';
 
 interface Props {
@@ -36,8 +36,15 @@ const VerticalCenteredModal = (props: Props) => {
         <p>{text} ({author})</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onHide}>Skip</Button>
-        <Button variant='info' onClick={() => dispatch(addQuote({ text, author }))}>Save</Button>
+        <Button onClick={() => {
+          onHide();
+          dispatch(getQuotes());
+          }}>Skip</Button>
+        <Button variant='info' onClick={() => {
+          dispatch(addQuote({ text, author }));
+          dispatch(getQuotes());
+          onHide();
+          }}>Save</Button>
       </Modal.Footer>
     </Modal>
   );
