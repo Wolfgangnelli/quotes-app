@@ -6,11 +6,13 @@ import {
     GET_QUOTES_REQUEST,
     GET_QUOTES_SUCCESS,
     GET_QUOTES_FAIL,
+    SEARCH_QUOTE,
  } from './actionTypes';
 import { Dispatch } from 'redux';
 import fs from '../../config/firebase';
 import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
+import store from '../store';
 
 export const getQuotes = () => async (dispatch: Dispatch) => {
     try {
@@ -65,4 +67,14 @@ export const addQuote = (quote: QuoteType) => async (dispatch: Dispatch) => {
             payload: error,
         });
     }
+};
+
+export const searchQuote = (searchTerm: string) => (dispatch: Dispatch, getState: any) => {
+
+    const { quotes: { data } } = getState();
+
+    dispatch({
+        type: SEARCH_QUOTE,
+        payload: {searchTerm, quotes: data}
+    });
 };

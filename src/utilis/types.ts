@@ -22,10 +22,6 @@ export type SearchTermContextType = {
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>
 }
 
-export interface SuggestedQuotesState {
-    loading: boolean;
-    data: SuggestedQuotesType[];
-    error?: string | undefined;
-}
+export type CopiedValue = string | null
 
-export interface QuotesState extends SuggestedQuotesState {}
+export type CopyFn = (text: string) => Promise<boolean>

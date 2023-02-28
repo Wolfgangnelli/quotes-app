@@ -3,7 +3,8 @@ import {
     GET_SUGGESTED_QUOTES_SUCCESS, 
     GET_SUGGESTED_QUOTES_FAIL 
 } from '../actions/actionTypes';
-import { ActionType, SuggestedQuotesState } from '../../utilis/types';
+import { ActionType } from '../../utilis/types';
+import { SuggestedQuotesState } from '../../utilis/interfaces';
 
 
 const initialState: SuggestedQuotesState = {

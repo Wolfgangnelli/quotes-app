@@ -12,3 +12,6 @@ export const ADD_QUOTE_FAIL = "ADD_QUOTE_FAIL";
 export const GET_QUOTES_REQUEST = "GET_QUOTES_REQUEST";
 export const GET_QUOTES_SUCCESS = "GET_QUOTES_SUCCESS";
 export const GET_QUOTES_FAIL = "GET_QUOTES_FAIL";
+
+// search/filter quotes
+export const SEARCH_QUOTE = "SEARCH_QUOTE";

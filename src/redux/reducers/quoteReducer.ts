@@ -5,8 +5,10 @@ import {
     GET_QUOTES_REQUEST,
     GET_QUOTES_SUCCESS,
     GET_QUOTES_FAIL,
+    SEARCH_QUOTE,
 } from '../actions/actionTypes';
 import { ActionType, QuoteType } from '../../utilis/types';
+import { filterQuotes } from '../../utilis';
 
 const initialState = {
         data: [],
@@ -63,6 +65,20 @@ export const quotesReducer = (state = initialState, { type, payload}: ActionType
             return {
                 loading: false,
                 error: payload
+            };
+    
+        default:
+            return state;
+    }
+};
+
+export const quotesFilteredReducer = (state = initialState, { type, payload }: ActionType) => {
+    switch (type) {
+        case SEARCH_QUOTE:
+            const filteredQuote = !!payload.searchTerm.length ? filterQuotes(payload.searchTerm, payload.quotes) : [];
+            return {
+                ...state,
+                data: filteredQuote
             };
     
         default:
