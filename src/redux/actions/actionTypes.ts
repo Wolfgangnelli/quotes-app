@@ -15,3 +15,8 @@ export const GET_QUOTES_FAIL = "GET_QUOTES_FAIL";
 
 // search/filter quotes
 export const SEARCH_QUOTE = "SEARCH_QUOTE";
+
+// auth
+export const CREATE_USER_REQUEST = "CREATE_USER_REQUEST";
+export const CREATE_USER_SUCCESS = "CREATE_USER_SUCCESS";
+export const CREATE_USER_FAIL = "CREATE_USER_FAIL";   

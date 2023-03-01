@@ -12,7 +12,6 @@ import { Dispatch } from 'redux';
 import fs from '../../config/firebase';
 import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
-import store from '../store';
 
 export const getQuotes = () => async (dispatch: Dispatch) => {
     try {

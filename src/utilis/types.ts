@@ -25,3 +25,9 @@ export type SearchTermContextType = {
 export type CopiedValue = string | null
 
 export type CopyFn = (text: string) => Promise<boolean>
+
+export type UserType = {
+    username: string
+    email: string
+    password: string
+}
