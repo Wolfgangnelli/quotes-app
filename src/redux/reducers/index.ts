@@ -5,14 +5,14 @@ import {
     quotesReducer as quotes, 
     quotesFilteredReducer as quotesFiltered,
 } from './quoteReducer';
-import {     createUserReducer as user, } from './authUserReducer';
+import {     authReducer as auth, } from './authUserReducer';
 
 const reducers = {
     suggestedQuotes,
     quoteAdd,
     quotes,
     quotesFiltered,
-    user,
+    auth,
 };
 
 export default combineReducers(reducers);

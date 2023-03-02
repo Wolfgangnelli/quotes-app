@@ -14,7 +14,7 @@ const Singup = () => {
 
     const navigate = useNavigate();
     const dispatch: Dispatch<any> = useDispatch();
-    const { data, loading } = useSelector((state: any) => state.user);
+    const { data, loading } = useSelector((state: any) => state.auth);
 
     const {
         register,
@@ -27,14 +27,16 @@ const Singup = () => {
     });
 
     const handleSingupUser = handleSubmit(async (data: any) => {
-        dispatch(createUser(data));
+      const { username, email, password } = data;
+        
+      dispatch(createUser({ username, email, password }));
     });
 
     useEffect(() => {
-        if(!!Object.keys(data).length) {
+        if(data && !!Object.keys(data).length) {
             console.log(data);
-            navigate('/');
             reset();
+            navigate('/');
         }
     }, [data]);
 
@@ -50,7 +52,7 @@ const Singup = () => {
             {...register("email")}
             required
           />
-          {errors.email && <p>Email is required</p>}
+          {errors.email && <p>{String(errors.email?.message)}</p>}
         </Form.Group>
         <Form.Group className="my-2" controlId="username">
           <Form.Label>Username</Form.Label>
@@ -60,7 +62,7 @@ const Singup = () => {
             {...register("username")}
             required
           />
-          {errors.username && <p>Password is requried</p>}
+          {errors.username && <p>{String(errors.username?.message)}</p>}
         </Form.Group>
         <Form.Group className="my-2" controlId="password">
           <Form.Label>Password</Form.Label>
@@ -70,18 +72,27 @@ const Singup = () => {
             {...register("password")}
             required
           />
-          {errors.password && <p>Password is required</p>}
+          {errors.password && <p>{String(errors.password?.message)}</p>}
         </Form.Group>
- {/*        {error && (
-          <Row className="mt-1">
-            <Col>
-              <Message variant="danger">{error.message}</Message>
-            </Col>
-          </Row>
-        )} */}
+        <Form.Group className="my-2" controlId="password">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Confirm assword"
+            {...register("confirmPassword")}
+            required
+          />
+          {errors.confirmPassword && <p>{String(errors.confirmPassword?.message)}</p>}
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="I have read and agree to the Terms"  {...register("acceptTerms")} required/>
+        </Form.Group>
         <Row>
           <Col className="d-flex justify-content-center">
             <Button type="submit" variant="primary" className="mt-4">SUBMIT</Button>
+          </Col>
+          <Col className="d-flex justify-content-center">
+            <Button type="button" variant="warning" className="mt-4" onClick={reset}>RESET</Button>
           </Col>
         </Row>
       </Form>
@@ -94,7 +105,7 @@ const Singup = () => {
         </Col>
       </Row>
     </AuthFormContainer>
-  )
-}
+  );
+};
 
 export default Singup;

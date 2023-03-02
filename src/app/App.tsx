@@ -1,12 +1,12 @@
 import Routes from "../routes";
 import { Container } from "react-bootstrap";
 import { Header, Footer } from '../components/organisms';
-import { AuthProvider } from '../auth/Auth';
+/* import { AuthProvider } from '../auth/Auth'; */
 
 function App() {
   
   return (
-    <AuthProvider>
+  /*   <AuthProvider> */
       <div>
         <Header />
         <Container fluid="xxl">
@@ -16,7 +16,7 @@ function App() {
         </Container>
         <Footer />
       </div>
-    </AuthProvider>
+/*     </AuthProvider> */
   );
 }
 
