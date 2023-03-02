@@ -14,7 +14,7 @@ const HomePage = () => {
   const [suggestedQuote, setSuggestedQuote] = useState(null);
 
   const dispatch: Dispatch<any> = useDispatch();
-  const {data, loading, error} = useSelector((state: any) => state.suggestedQuotes);
+  const { data, loading, error } = useSelector((state: any) => state.suggestedQuotes);
   const { data: quotesFiltered } = useSelector((state: any) => state.quotesFiltered);
   const { data: dataQuotes, loading: loadingQuotes, error: errorQuotes} = useSelector((state: any) => state.quotes);
 

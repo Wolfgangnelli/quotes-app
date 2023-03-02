@@ -1,8 +1,11 @@
 import React from 'react';
+import { Navbar } from '../../molecules';
 
 const Header = () => {
   return (
-    <header>Header</header>
+    <header>
+      <Navbar />
+    </header>
   );
 };
 

@@ -1,11 +1,14 @@
 import { 
     CREATE_USER_REQUEST, 
     CREATE_USER_SUCCESS, 
-    CREATE_USER_FAIL 
+    CREATE_USER_FAIL,
+    LOGOUT_USER_REQUEST,
+    LOGOUT_USER_SUCCESS,
+    LOGOUT_USER_FAIL,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { UserType } from '../../utilis/types';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 
 export const createUser = (userData: UserType) => async (dispatch: Dispatch) => {
@@ -25,6 +28,8 @@ export const createUser = (userData: UserType) => async (dispatch: Dispatch) => 
                     type: CREATE_USER_SUCCESS,
                     payload: user,
                 });
+
+                localStorage.setItem("user", JSON.stringify(user));
             });
 
         });
@@ -32,6 +37,28 @@ export const createUser = (userData: UserType) => async (dispatch: Dispatch) => 
     } catch (error) {
         dispatch({
             type: CREATE_USER_FAIL,
+            payload: error
+        });
+    }
+};
+
+export const logoutUser = () => async (dispatch: Dispatch) => {
+    try {
+        dispatch({
+            type: LOGOUT_USER_REQUEST,
+        });
+
+        await signOut(auth).then(() => {
+
+            dispatch({
+                type: LOGOUT_USER_SUCCESS,
+            });
+
+            localStorage.removeItem("user");
+        });
+    } catch (error) {
+        dispatch({
+            type: LOGOUT_USER_FAIL,
             payload: error
         });
     }
