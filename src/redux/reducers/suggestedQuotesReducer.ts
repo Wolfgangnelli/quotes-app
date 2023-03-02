@@ -8,8 +8,8 @@ import { SuggestedQuotesState } from '../../utilis/interfaces';
 
 
 const initialState: SuggestedQuotesState = {
+    data: [],
     loading: true,
-    data: []
 };
 
 export const suggestedQuotesReducer = ( state = initialState, { type, payload }: ActionType) => {

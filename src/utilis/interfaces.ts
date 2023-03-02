@@ -7,3 +7,11 @@ export interface SuggestedQuotesState {
 }
 
 export interface QuotesState extends SuggestedQuotesState {}
+
+export interface UseFormInputs {
+    username: string 
+    email: string 
+    password: string 
+    confirmPassword?: string 
+    acceptTerms?: boolean 
+  }

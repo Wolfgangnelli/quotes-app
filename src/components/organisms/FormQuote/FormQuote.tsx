@@ -2,7 +2,7 @@ import { Form } from 'react-bootstrap';
 import { Button } from '../../atoms';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { quoteSchema } from '../../../schemas/quote';
+import { quoteSchema } from '../../../schemas';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { addQuote, getQuotes } from '../../../redux/actions/quoteAction';

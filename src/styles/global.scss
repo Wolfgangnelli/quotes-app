@@ -7,3 +7,10 @@
     box-sizing: border-box;
   }
   
+body {
+  background: radial-gradient(
+    ellipse at bottom,
+    $body-bg-dark-blue 0%,
+    $gray-900 100%
+  );
+}

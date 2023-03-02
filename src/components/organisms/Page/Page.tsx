@@ -2,12 +2,13 @@ import React from "react";
 
 interface Props {
   children: React.ReactNode;
+  className?: string
 }
 
 const Page = (props: Props) => {
-  const { children } = props;
+  const { children, className = '' } = props;
 
-  return <div>{children}</div>;
+  return <section className={className}>{children}</section>;
 };
 
 export default Page;

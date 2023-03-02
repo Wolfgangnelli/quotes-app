@@ -1,0 +1,16 @@
+@import "../../../theme/variables";
+
+.custom-nav-bar-bg {
+    opacity: 0.8 !important;
+}
+
+.logo-home {
+    color: $cyan;
+}
+
+@media only screen and (max-width: 992px) {
+    .nav-breakpoints {
+        display: flex;
+        flex-direction: column;
+    }
+}
