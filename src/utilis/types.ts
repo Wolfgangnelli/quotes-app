@@ -27,7 +27,33 @@ export type CopiedValue = string | null
 export type CopyFn = (text: string) => Promise<boolean>
 
 export type UserType = {
-    username: string
     email: string
     password: string
+    username?: string
+}
+
+export type StateType = {
+    data: []
+    loading: boolean
+    error?: any
+}
+
+export type SuggestedQuotesStateType = StateType & {}
+
+export type QuoteAddStateType = StateType & {}
+
+export type QuotesStateType = StateType & {}
+
+export type QuotesFilteredStateType = StateType & {}
+
+export type AuthStateType = StateType & {
+    isLoggedIn: boolean
+}
+
+export type StoreStateType = {
+    suggestedQuotes: SuggestedQuotesStateType
+    quoteAdd: QuoteAddStateType
+    quotes: QuotesStateType
+    quotesFiltered: QuotesFilteredStateType
+    auth: AuthStateType
 }

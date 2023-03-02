@@ -1,19 +1,19 @@
-import React, { useContext } from "react";
 import { Routes as RouterRoutes, Route, Navigate } from "react-router-dom";
-import { HomePage, NotFound } from "../pages";
-import Singup from '../auth/Singup/Singup';
-/* import { AuthContext } from '../auth/Auth'; */
+import { HomePage, NotFound, Profile } from "../pages";
+import { Singup, Login } from '../auth';
 import { useSelector } from 'react-redux';
+import { StoreStateType } from '../utilis/types';
 
 const Routes = () => {
-/*   const currentUser = useContext(AuthContext); */
-  const {data} = useSelector((state: any) => state.auth);
+
+  const { isLoggedIn } = useSelector((state: StoreStateType) => state.auth);
 
   return (
     <RouterRoutes>
-      <Route path="/" element={data ? <HomePage /> : <Navigate to='/singup' />} />
-      <Route path="/singup" element={data ? <Navigate to='/' replace /> : <Singup />} />
-      {/* <Route path="/login" element={currentUser ? <Navigate to='/' replace /> : <Login />} /> */}
+      <Route path="/" element={isLoggedIn ? <HomePage /> : <Navigate to='/singup' />} />
+      <Route path="/singup" element={isLoggedIn ? <Navigate to='/' /> : <Singup />} />
+      <Route path="/login" element={isLoggedIn ? <Navigate to='/' /> : <Login />} />
+      <Route path="/profile" element={isLoggedIn ?  <Profile /> : <Navigate to='/singup' />} />
       <Route path="*" element={<NotFound />} />
     </RouterRoutes>
   );

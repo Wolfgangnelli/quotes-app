@@ -5,106 +5,109 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AuthFormContainer } from '../../components/atoms';
-import { singupUserSchema } from '../../schemas/singupUser';
+import { Page } from '../../components/organisms';
+import { singupUserSchema } from '../../schemas';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { createUser } from '../../redux/actions/authUserAction';
+import { UseFormInputs } from '../../utilis/interfaces';
 
 const Singup = () => {
 
     const navigate = useNavigate();
     const dispatch: Dispatch<any> = useDispatch();
-    const { data, loading } = useSelector((state: any) => state.auth);
+    const { isLoggedIn } = useSelector((state: any) => state.auth);
 
     const {
         register,
         formState: { errors },
         handleSubmit,
         reset,
-    } = useForm({
+    } = useForm<UseFormInputs>({
         mode: 'all',
         resolver: yupResolver(singupUserSchema),
     });
 
-    const handleSingupUser = handleSubmit(async (data: any) => {
+    const handleSingupUser = handleSubmit((data: UseFormInputs) => {
       const { username, email, password } = data;
         
       dispatch(createUser({ username, email, password }));
     });
 
     useEffect(() => {
-        if(data && !!Object.keys(data).length) {
-            console.log(data);
+        if(isLoggedIn) {
             reset();
             navigate('/');
         }
-    }, [data]);
+    }, [isLoggedIn]);
 
   return (
-    <AuthFormContainer>
-        <h1 className='py-2 text-center'>Registration</h1>
-        <Form onSubmit={handleSingupUser}>
-        <Form.Group className="my-2" controlId="email">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Email"
-            {...register("email")}
-            required
-          />
-          {errors.email && <p>{String(errors.email?.message)}</p>}
-        </Form.Group>
-        <Form.Group className="my-2" controlId="username">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Username"
-            {...register("username")}
-            required
-          />
-          {errors.username && <p>{String(errors.username?.message)}</p>}
-        </Form.Group>
-        <Form.Group className="my-2" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-            required
-          />
-          {errors.password && <p>{String(errors.password?.message)}</p>}
-        </Form.Group>
-        <Form.Group className="my-2" controlId="password">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm assword"
-            {...register("confirmPassword")}
-            required
-          />
-          {errors.confirmPassword && <p>{String(errors.confirmPassword?.message)}</p>}
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="I have read and agree to the Terms"  {...register("acceptTerms")} required/>
-        </Form.Group>
-        <Row>
-          <Col className="d-flex justify-content-center">
-            <Button type="submit" variant="primary" className="mt-4">SUBMIT</Button>
-          </Col>
-          <Col className="d-flex justify-content-center">
-            <Button type="button" variant="warning" className="mt-4" onClick={reset}>RESET</Button>
+    <Page className='min-vh-100'>
+      <AuthFormContainer>
+          <h1 className='py-2 text-center'>Registration</h1>
+          <Form onSubmit={handleSingupUser}>
+          <Form.Group className="my-2" controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Email"
+              {...register("email")}
+              required
+            />
+            {errors.email && <p>{String(errors.email?.message)}</p>}
+          </Form.Group>
+          <Form.Group className="my-2" controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Username"
+              {...register("username")}
+              required
+            />
+            {errors.username && <p>{String(errors.username?.message)}</p>}
+          </Form.Group>
+          <Form.Group className="my-2" controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              {...register("password")}
+              required
+            />
+            {errors.password && <p>{String(errors.password?.message)}</p>}
+          </Form.Group>
+          <Form.Group className="my-2" controlId="confirm-password">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Confirm assword"
+              {...register("confirmPassword")}
+              required
+            />
+            {errors.confirmPassword && <p>{String(errors.confirmPassword?.message)}</p>}
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Check type="checkbox" label="I have read and agree to the Terms"  {...register("acceptTerms")} required/>
+          </Form.Group>
+          <Row>
+            <Col className="d-flex justify-content-center">
+              <Button type="submit" variant="primary" className="mt-4 fw-bold">SUBMIT</Button>
+            </Col>
+            <Col className="d-flex justify-content-center">
+              <Button variant="warning" className="mt-4 fw-bold" onClick={() => reset()}>RESET</Button>
+            </Col>
+          </Row>
+        </Form>
+        <Row className="p-3">
+          <Col>
+            Already Registered?{" "}
+            <NavLink to={"/login"} className="link-register">
+              Login
+            </NavLink>
           </Col>
         </Row>
-      </Form>
-      <Row className="p-3">
-        <Col>
-          Already Registered?{" "}
-          <NavLink to={"/login"} className="link-register">
-            Login
-          </NavLink>
-        </Col>
-      </Row>
-    </AuthFormContainer>
+      </AuthFormContainer>
+    </Page>
   );
 };
 

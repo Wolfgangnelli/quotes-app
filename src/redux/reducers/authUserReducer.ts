@@ -5,6 +5,9 @@ import {
     LOGOUT_USER_REQUEST,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER_FAIL,
+    LOGIN_USER_REQUEST,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_FAIL,
 } from '../actions/actionTypes';
 import { ActionType } from '../../utilis/types';
 
@@ -44,7 +47,8 @@ export const authReducer = (state = initialState, { type, payload }: ActionType)
         case LOGOUT_USER_SUCCESS:
             return {
                 ...state,
-                isLoggedIn: true,
+                isLoggedIn: false,
+                loading: false,
                 data: null
             };
         case LOGOUT_USER_FAIL:
@@ -52,6 +56,26 @@ export const authReducer = (state = initialState, { type, payload }: ActionType)
                 ...state,
                 loading: false,
                 error: payload,
+            };
+        case LOGIN_USER_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                isLoggedIn: false,
+            };
+        case LOGIN_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isLoggedIn: true,
+                data: payload
+            };
+        case LOGIN_USER_FAIL:
+            return {
+                ...state,
+                loading: false,
+                isLoggedIn: false,
+                error: payload
             };
         default:
             return state;
