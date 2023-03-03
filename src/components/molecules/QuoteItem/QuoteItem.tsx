@@ -15,32 +15,37 @@ const QuoteItem = (props: Props) => {
 
     const [show, setShow] = useState(false);
 
-    const target = useRef(null);
+    const target = useRef(null as any);
     const [ value, copy] = useCopyToClipboard();
 
     const formattingTextQuote = () => {
       return author ? `${text}\n(${author})` : text;
     };
 
+    const handleClick = (e: React.SyntheticEvent) => {
+      e.currentTarget.classList.add('clicked');
+      copy(formattingTextQuote());
+    };
+
     useEffect(() => {
       if(value && show === false) {
         setShow(true);
-
         setTimeout(() => {
           setShow(false);
+          target.current.classList.remove('clicked');
         }, 2000);
       }
     }, [value]);
 
   return (
-    <li className='p-2 my-3 border border-info rounded q-shadow'>
+    <li className='p-2 my-3 border border-info rounded q-shadow' data-testid="quote-item">
         <Row className='flex'>
           <Col className='flex flex-column' sm={11} xs={10}>
             <Col className='fw-bold'>{text}</Col>
             {!!author?.length && <Col className='fst-italic opacity-75'>({author})</Col>}
           </Col>
           <Col sm={1} xs={2}>
-            <span className='copy-element float-start' ref={target} onClick={() => copy(formattingTextQuote())}>
+            <span className='copy-element float-start p-1' data-testid='copy-icon' ref={target} onClick={handleClick}>
               <i className="fa-solid fa-copy"></i>
             </span>
             <Overlay target={target.current} show={show} placement="top">

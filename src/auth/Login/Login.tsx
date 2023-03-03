@@ -63,7 +63,7 @@ const Login = () => {
     <Page className='min-vh-100'>
         <AuthFormContainer>
             <h1 className="py-2 text-center">Login</h1>
-            <Form onSubmit={handleLoginUser}>
+            <Form data-test="login-form" onSubmit={handleLoginUser}>
             <Form.Group className="my-2" controlId="email">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
@@ -93,7 +93,7 @@ const Login = () => {
         )}
             <Row>
                 <Col className="d-flex justify-content-center">
-                <Button type="submit" variant="primary" className="mt-4 fw-bold">
+                <Button data-test="submit-button" type="submit" variant="primary" className="mt-4 fw-bold">
                     SUBMIT
                 </Button>
                 </Col>

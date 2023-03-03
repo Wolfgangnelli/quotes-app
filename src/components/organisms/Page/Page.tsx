@@ -8,7 +8,7 @@ interface Props {
 const Page = (props: Props) => {
   const { children, className = '' } = props;
 
-  return <section className={className}>{children}</section>;
+  return <div className={className}>{children}</div>;
 };
 
 export default Page;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import {Button as BootstrapButton} from 'react-bootstrap';
 import './Button.scss';
