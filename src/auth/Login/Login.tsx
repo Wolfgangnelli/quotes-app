@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginUserSchema } from '../../schemas';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, redirect } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { loginUser } from '../../redux/actions/authUserAction';
 import { StoreStateType } from '../../utilis/types';
@@ -16,7 +16,6 @@ import {  FullScreenLoaderContext} from '../../app/App';
 
 const Login = () => {
 
-    const navigate = useNavigate();
     const dispatch: Dispatch<any> = useDispatch();
     const setfullScreenLoadingActive = useContext(FullScreenLoaderContext);
     const { isLoggedIn, error, loading } = useSelector((state: StoreStateType) => state.auth);
@@ -51,7 +50,7 @@ const Login = () => {
         if(isLoggedIn) {
             setfullScreenLoadingActive(false);
             reset();
-            navigate('/');
+            redirect('/');
         }
         if(loading) {
             setfullScreenLoadingActive(true);

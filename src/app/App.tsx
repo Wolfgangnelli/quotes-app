@@ -10,6 +10,7 @@ function App() {
   const [fullScreenLoadingActive, setfullScreenLoadingActive] = useState(false);
   
   return (
+    <>
       <FullScreenLoaderContext.Provider value={setfullScreenLoadingActive}>
       {fullScreenLoadingActive && <FullScreenLoader />}
         <Header />
@@ -18,6 +19,7 @@ function App() {
         </Container>
         <Footer />
       </FullScreenLoaderContext.Provider>
+    </>
   );
 }
 
