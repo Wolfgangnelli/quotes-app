@@ -1,9 +1,10 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { SuggestedQuotesType } from '../../../utilis/types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { addQuote, getQuotes } from '../../../redux/actions/quoteAction';
+import { StoreStateType } from '../../../utilis/types';
 import './VerticalCenteredModal.scss';
 
 interface Props {
@@ -17,6 +18,7 @@ const VerticalCenteredModal = (props: Props) => {
     const { suggetedQuote: { text, author }, show, onHide } = props;
 
     const dispatch: Dispatch<any> = useDispatch();
+    const { data } = useSelector((state: StoreStateType) => state.auth);
 
   return (
     <Modal
@@ -25,10 +27,11 @@ const VerticalCenteredModal = (props: Props) => {
       size="lg"
       className='q-vertical-modal'
       centered
+      onExiting={() => dispatch(getQuotes())}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Hi, welcome to Quotes App!
+          Hi {data?.displayName}, welcome to Quotes App!
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -38,11 +41,9 @@ const VerticalCenteredModal = (props: Props) => {
       <Modal.Footer>
         <Button onClick={() => {
           onHide();
-          dispatch(getQuotes());
           }}>Skip</Button>
         <Button variant='info' onClick={() => {
           dispatch(addQuote({ text, author }));
-          dispatch(getQuotes());
           onHide();
           }}>Save</Button>
       </Modal.Footer>

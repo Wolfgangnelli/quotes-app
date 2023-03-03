@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useContext } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import { AuthFormContainer } from '../../components/atoms';
+import { AuthFormContainer, Message } from '../../components/atoms';
 import { Page } from '../../components/organisms';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -36,11 +36,10 @@ const Login = () => {
             return "User Not Found!";
         } else if (error.code.includes("wrong-password")) {
             return "Wrong Password!";
+        } else {
+            return error.code;
         }
     };
-
-    const message = error && <strong className='fw-bold text-uppercases' style={{ color: 'red' }}>{errorMessage()}</strong>;
-
 
     const handleLoginUser = handleSubmit((data: UseFormInputs) => {
         const { email, password } = data;
@@ -89,7 +88,7 @@ const Login = () => {
         {error && (
             <Row className='pt-4 text-center'>
                 <Col>
-                    {message}
+                    <Message label={errorMessage()} variant='danger' />
                 </Col>
             </Row>
         )}

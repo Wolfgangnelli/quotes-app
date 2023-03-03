@@ -38,6 +38,37 @@ export type StateType = {
     error?: any
 }
 
+type AuthProviderDataType = [
+    {
+        providerId: string
+        uid: string
+        displayName: string
+        email: string
+        phoneNumber: string | null
+        photoURL: string | null
+    }
+]
+
+type AuthStsTokenManagerType = {
+    refreshToken: string
+    accessToken: string
+    expirationTime: number
+}
+
+export type AuthFirebaseDataType = {
+    uid: string
+    email: string
+    emailVerified: boolean
+    displayName: string
+    isAnonymous: boolean
+    providerData: AuthProviderDataType
+    stsTokenManager: AuthStsTokenManagerType
+    createdAt: string
+    lastLoginAt: string
+    apiKey: string
+    appName: string
+}
+
 export type SuggestedQuotesStateType = StateType & {}
 
 export type QuoteAddStateType = StateType & {}
@@ -46,8 +77,11 @@ export type QuotesStateType = StateType & {}
 
 export type QuotesFilteredStateType = StateType & {}
 
-export type AuthStateType = StateType & {
+export type AuthStateType = {
     isLoggedIn: boolean
+    loading: boolean
+    error?: any
+    data: AuthFirebaseDataType | null
 }
 
 export type StoreStateType = {

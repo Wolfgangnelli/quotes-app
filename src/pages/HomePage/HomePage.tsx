@@ -37,7 +37,7 @@ const HomePage = () => {
   return error ? (
     <div>{error}</div>
   ) : (
-    <Page>
+    <Page className='min-vh-100'>
       <HeroHeader />
       <SectionContainer title='Add New Quote'>
         <FormQuote />
