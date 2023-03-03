@@ -1,22 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AuthFormContainer } from '../../components/atoms';
+import { AuthFormContainer, Message } from '../../components/atoms';
 import { Page } from '../../components/organisms';
 import { singupUserSchema } from '../../schemas';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { createUser } from '../../redux/actions/authUserAction';
 import { UseFormInputs } from '../../utilis/interfaces';
+import { StoreStateType } from '../../utilis/types';
+import { FullScreenLoaderContext } from '../../app/App';
 
 const Singup = () => {
 
     const navigate = useNavigate();
     const dispatch: Dispatch<any> = useDispatch();
-    const { isLoggedIn } = useSelector((state: any) => state.auth);
+    const setfullScreenLoadingActive = useContext(FullScreenLoaderContext);
+    const { isLoggedIn, error, loading } = useSelector((state: StoreStateType) => state.auth);
 
     const {
         register,
@@ -39,7 +42,8 @@ const Singup = () => {
             reset();
             navigate('/');
         }
-    }, [isLoggedIn]);
+        loading ? setfullScreenLoadingActive(true) : setfullScreenLoadingActive(false);
+    }, [isLoggedIn, loading]);
 
   return (
     <Page className='min-vh-100'>
@@ -98,6 +102,13 @@ const Singup = () => {
             </Col>
           </Row>
         </Form>
+        {error && (
+            <Row className='pt-4 text-center'>
+                <Col>
+                    <Message label={error?.code} variant='danger' />
+                </Col>
+            </Row>
+        )}
         <Row className="p-3">
           <Col>
             Already Registered?{" "}
