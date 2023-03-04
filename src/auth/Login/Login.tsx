@@ -87,7 +87,7 @@ const Login = () => {
         {error && (
             <Row className='pt-4 text-center'>
                 <Col>
-                    <Message label={errorMessage()} variant='danger' />
+                    <Message className='alert-danger' label={errorMessage()} variant='danger' />
                 </Col>
             </Row>
         )}

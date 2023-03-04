@@ -84,7 +84,7 @@ const Singup = () => {
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Confirm assword"
+              placeholder="Confirm password"
               {...register("confirmPassword")}
               required
             />

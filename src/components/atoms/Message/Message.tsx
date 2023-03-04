@@ -1,16 +1,18 @@
 import { Alert } from 'react-bootstrap';
+import './Message.scss';
 
 interface Props {
     label: string
     variant?: string
+    className?: string
 }
 
 const Message = (props: Props) => {
 
-    const { label = '', variant = 'primary' } = props;
+    const { label = '', variant = 'primary', className = '' } = props;
 
   return (
-    <Alert variant={variant} >{label}</Alert>
+    <Alert className={`fw-bold ${className}`} variant={variant} >{label}</Alert>
   );
 };
 

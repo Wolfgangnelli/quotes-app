@@ -13,6 +13,7 @@ import { filterQuotes } from '../../utilis';
 const initialState = {
         data: [],
         loading: false,
+        error: null,
 };
 
 export const quoteAddReducer = ( state = initialState, { type, payload }: ActionType) => {

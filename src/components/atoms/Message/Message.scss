@@ -1,0 +1,7 @@
+@import '../../../theme/variables';
+
+.alert-danger {
+    color: $white !important;
+    background-color: $red !important;
+    border-color: $red !important;
+}
