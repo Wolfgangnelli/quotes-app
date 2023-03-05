@@ -1,11 +1,12 @@
 import React from 'react';
 import { Navbar } from '../../molecules';
+import { Container } from 'react-bootstrap';
 
 const Header = () => {
   return (
-    <header>
-      <Navbar />
-    </header>
+      <Container as='header'>
+        <Navbar />
+      </Container>
   );
 };
 

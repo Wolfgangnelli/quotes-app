@@ -1,4 +1,3 @@
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import {Navbar as NavbarBootstrap} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,13 +16,13 @@ const Navbar = () => {
 
   return (
     <NavbarBootstrap bg="dark" expand="lg" variant='dark' fixed='top' collapseOnSelect className='custom-nav-bar-bg'>
-      <NavbarBootstrap.Brand href="/" className='logo-home fw-bold'>Quotes App</NavbarBootstrap.Brand>
+      <NavbarBootstrap.Brand href="/" className='logo-home fw-bold ms-2'>Quotes App</NavbarBootstrap.Brand>
       <NavbarBootstrap.Toggle aria-controls="basic-navbar-nav" />
-      <NavbarBootstrap.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+      <NavbarBootstrap.Collapse id="basic-navbar-nav" className='d-xl-flex justify-content-end align-items-end'>
+        <Nav>
             {isLoggedIn && (
-                 <div className="d-flex justify-content-center align-items-center ms-lg-2 nav-breakpoints">
-                    <Nav.Link href='/profile'>
+                 <div className="d-flex justify-content-xl-end align-items-lg-end justify-content-center align-items-center me-lg-2 nav-breakpoints">
+                    <Nav.Link href='#'>
                         <NavbarBootstrap.Text style={{ color: "green" }}>
                             <i className="fa-solid fa-user-check"></i>
                         </NavbarBootstrap.Text>

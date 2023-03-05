@@ -13,6 +13,9 @@ import { filterQuotes } from '../../utilis';
 const initialState = {
         data: [],
         loading: false,
+        error: null,
+        findFilteredQuotes: false,
+        activeFilter: false
 };
 
 export const quoteAddReducer = ( state = initialState, { type, payload }: ActionType) => {
@@ -78,7 +81,9 @@ export const quotesFilteredReducer = (state = initialState, { type, payload }: A
             const filteredQuote = !!payload.searchTerm.length ? filterQuotes(payload.searchTerm, payload.quotes) : [];
             return {
                 ...state,
-                data: filteredQuote
+                data: filteredQuote,
+                findFilteredQuotes: !!filteredQuote.length ? true : false,
+                activeFilter: !!payload.searchTerm.length ? true : false
             };
     
         default:

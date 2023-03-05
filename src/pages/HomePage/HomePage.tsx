@@ -9,7 +9,6 @@ import { Dispatch } from 'redux';
 import { getSuggestedQuotes } from '../../redux/actions/suggestedQuotesAction';
 import './HomePage.scss';
 
-
 const HomePage = () => {
   const [modalShow, setModalShow] = useState(false);
   const [suggestedQuote, setSuggestedQuote] = useState(null);
