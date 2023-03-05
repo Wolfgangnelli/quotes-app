@@ -14,13 +14,13 @@ const Navbar = () => {
         dispatch(logoutUser());
     };
 
-  return (
+  return isLoggedIn && (
+    <>
     <NavbarBootstrap bg="dark" expand="lg" variant='dark' fixed='top' collapseOnSelect className='custom-nav-bar-bg'>
       <NavbarBootstrap.Brand href="/" className='logo-home fw-bold ms-2'>Quotes App</NavbarBootstrap.Brand>
       <NavbarBootstrap.Toggle aria-controls="basic-navbar-nav" />
       <NavbarBootstrap.Collapse id="basic-navbar-nav" className='d-xl-flex justify-content-end align-items-end'>
         <Nav>
-            {isLoggedIn && (
                  <div className="d-flex justify-content-xl-end align-items-lg-end justify-content-center align-items-center me-lg-2 nav-breakpoints">
                     <Nav.Link href='#'>
                         <NavbarBootstrap.Text style={{ color: "green" }}>
@@ -32,10 +32,10 @@ const Navbar = () => {
                         Logout
                     </Nav.Link>
                </div>
-            )}
         </Nav>
       </NavbarBootstrap.Collapse>
-  </NavbarBootstrap>
+    </NavbarBootstrap>
+    </>
   );
 };
 

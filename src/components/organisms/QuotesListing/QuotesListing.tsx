@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import './QuotesListing.scss';
 import { QuoteType } from '../../../utilis/types';
 import { QuoteItem } from '../../molecules';
