@@ -1,7 +1,7 @@
 import "firebase/app";
 import "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, initializeFirestore, CACHE_SIZE_UNLIMITED } from "firebase/firestore";
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = initializeApp({
@@ -14,7 +14,12 @@ const firebaseConfig = initializeApp({
   appId: process.env.REACT_APP_MESSAGING_APP_ID,
 });
 
-const fs = getFirestore(firebaseConfig);
+
+const fs = initializeFirestore(firebaseConfig, {
+  cacheSizeBytes: CACHE_SIZE_UNLIMITED
+});
+
+//const fs = getFirestore(firebaseConfig);
 export const auth = getAuth();
 
 export default fs;
