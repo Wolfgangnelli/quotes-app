@@ -23,7 +23,7 @@ describe('QuoteListing component', () => {
     it('renders "No quotes Found!" when no quotes are passed', () => {
         render(<QuotesListing quotes={[]} />);
 
-        expect(screen.getByText(/no quotes found!/i)).toBeInTheDocument();
+        expect(screen.getByText(/no quotes!/i)).toBeInTheDocument();
     });
 });
 

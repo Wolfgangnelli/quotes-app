@@ -1,32 +1,37 @@
-/* // Jest Test
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { searchQuote } from '../../../redux/actions/quoteAction';
 import SearchBar from './SearchBar';
-import { Form, Col } from 'react-bootstrap';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 
-describe('SearchBar Component', () => {
-  let wrapper;
-  let mockDispatch;
+const mockStore = configureStore([]);
+
+describe('SearchBar', () => {
+  let store: any;
+  let mockDispatch = jest.fn();
 
   beforeEach(() => {
-    mockDispatch = jest.fn();
-    wrapper = shallow(<SearchBar dispatch={mockDispatch} />);
+    store = mockStore({
+      data: [],
+      loading: false,
+      error: null,
+    });
+    jest.mock('react-redux', () => ({
+      useDispatch: () => mockDispatch
+    }));
   });
 
-  it('should render a Col Component', () => {
-    expect(wrapper.find(Col).length).toEqual(1);
+  test('dispatches searchQuote action on input change', () => {
+    const searchTerm = 'test';
+
+    render(
+      <Provider store={store}>
+        <SearchBar />
+      </Provider>
+    );
+    
+    const input = screen.getByPlaceholderText('Enter a keyword');
+    fireEvent.change(input, { target: { value: searchTerm } });
+    expect(mockDispatch).toHaveBeenCalledWith(searchQuote(searchTerm));
   });
-
-  it('should render a Form Component', () => {
-    expect(wrapper.find(Form).length).toEqual(1);
-  });
-
-  it('should dispatch searchQuote action when handleChange is called', () => {
-    wrapper.find(Form.Control).simulate('change', { target: { value: 'test' } });
-    expect(mockDispatch).toHaveBeenCalledWith();
-  });
-
-}); */
-
-export {};
+});

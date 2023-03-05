@@ -10,7 +10,7 @@ const QuotesListing = (props: Props) => {
 
     const { quotes } = props;
 
-    if(!!quotes?.length === false) return <div>No quotes Found!</div>;
+    if(!!quotes?.length === false) return <div>No quotes!</div>;
 
   return (
     <ul className='list-unstyled'>
