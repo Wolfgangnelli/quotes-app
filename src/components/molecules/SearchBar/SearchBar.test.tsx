@@ -1,24 +1,23 @@
 import { render, fireEvent, screen } from '@testing-library/react';
-import { searchQuote } from '../../../redux/actions/quoteAction';
+import { SEARCH_QUOTE } from '../../../redux/actions/actionTypes';
 import SearchBar from './SearchBar';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
-const mockStore = configureStore([]);
+const mockStore = configureStore([thunk]);
 
 describe('SearchBar', () => {
   let store: any;
-  let mockDispatch = jest.fn();
 
   beforeEach(() => {
     store = mockStore({
-      data: [],
-      loading: false,
-      error: null,
+      quotes: {
+        data: [],
+        loading: false,
+        error: null,
+      }
     });
-    jest.mock('react-redux', () => ({
-      useDispatch: () => mockDispatch
-    }));
   });
 
   test('dispatches searchQuote action on input change', () => {
@@ -29,9 +28,27 @@ describe('SearchBar', () => {
         <SearchBar />
       </Provider>
     );
+
+    const searchQuoteDispatch = {
+      type: SEARCH_QUOTE,
+    };
     
     const input = screen.getByPlaceholderText('Enter a keyword');
     fireEvent.change(input, { target: { value: searchTerm } });
-    expect(mockDispatch).toHaveBeenCalledWith(searchQuote(searchTerm));
+
+    store.dispatch(searchQuoteDispatch);
+    const actions = store.getActions();
+
+    expect(actions).toEqual([
+      {
+        type: SEARCH_QUOTE,
+        payload: {
+          searchTerm,
+          quotes: [],
+        }
+      },
+      { type: SEARCH_QUOTE }
+    ]);
+
   });
 });

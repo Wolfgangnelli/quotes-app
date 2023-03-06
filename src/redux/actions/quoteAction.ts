@@ -74,6 +74,6 @@ export const searchQuote = (searchTerm: string) => (dispatch: Dispatch, getState
 
     dispatch({
         type: SEARCH_QUOTE,
-        payload: {searchTerm, quotes: data}
+        payload: { searchTerm, quotes: data }
     });
 };
