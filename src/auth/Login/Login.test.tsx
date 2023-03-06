@@ -1,10 +1,24 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import Login from './Login';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 
 describe('Login component', () => {
 
   it('renders login form', () => {
-    render(<Login />);
+    const initState = {
+      data: {},
+      loading: false,
+      isLoggedIn: false,
+    };
+    const mockStore = configureStore();
+    const authStore = mockStore(initState);
+
+    render(
+    <Provider store={authStore}>
+      <Login />
+    </Provider>
+    );
     expect(screen.getByTestId('login-form')).toBeInTheDocument();
   });
 
