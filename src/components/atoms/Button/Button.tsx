@@ -20,11 +20,6 @@ const Button = (props: Props) => {
         label = '',
         type = 'button',
         variant = 'primary',
-        size = 'md',
-        disabled = false,
-        icon = null,
-        onClick = () => {},
-        href = null,
         className = '',
     } = props;
 

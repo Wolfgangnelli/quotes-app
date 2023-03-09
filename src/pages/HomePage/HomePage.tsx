@@ -7,7 +7,9 @@ import { FullScreenLoaderContext } from '../../app/App';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { getSuggestedQuotes } from '../../redux/actions/suggestedQuotesAction';
+import { StoreStateType } from '../../utilis/types';
 import './HomePage.scss';
+
 
 const HomePage = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -15,14 +17,14 @@ const HomePage = () => {
 
   const dispatch: Dispatch<any> = useDispatch();
   const setfullScreenLoadingActive = useContext(FullScreenLoaderContext);
-  const { data, loading, error } = useSelector((state: any) => state.suggestedQuotes);
-  const { data: quotesFiltered, loading: loadingQuotesFilterd } = useSelector((state: any) => state.quotesFiltered);
-  const { data: dataQuotes, loading: loadingQuotes, error: errorQuotes} = useSelector((state: any) => state.quotes);
+  const { data, loading, error } = useSelector((state: StoreStateType) => state.suggestedQuotes);
+  const { data: quotesFiltered, loading: loadingQuotesFilterd } = useSelector((state: StoreStateType) => state.quotesFiltered);
+  const { data: dataQuotes, loading: loadingQuotes, error: errorQuotes} = useSelector((state: StoreStateType) => state.quotes);
 
   useEffect(() => {
     if(suggestedQuote === null) {
       if(!!data?.length === false) {
-        dispatch(getSuggestedQuotes());
+          dispatch(getSuggestedQuotes());
       } else {
         const randomSuggestedQuote = data[Math.floor(Math.random()*data.length)];
         setSuggestedQuote(randomSuggestedQuote);
