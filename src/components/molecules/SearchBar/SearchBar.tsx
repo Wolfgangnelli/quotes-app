@@ -14,7 +14,7 @@ const SearchBar = () => {
   
   return (
     <Col xxl={4}>
-      <Form>
+      <Form data-testid='test-searchbar'>
           <Form.Group className="mb-3">
           <Form.Label>Search quote</Form.Label>
           <Form.Control type="text" placeholder="Enter a keyword" onChange={(e) => handleChange(e.target.value)} />

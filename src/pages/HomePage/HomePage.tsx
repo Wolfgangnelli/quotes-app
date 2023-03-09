@@ -30,12 +30,13 @@ const HomePage = () => {
         setModalShow(true);
       }
       loading ? setfullScreenLoadingActive(true) : setfullScreenLoadingActive(false);
-      
     }
   }, [data]);
 
   return error ? (
-    <div>{error}</div>
+    <Page className='min-vh-100'>
+      <div>{error}</div>
+    </Page>
   ) : (
     <Page className='min-vh-100'>
       <HeroHeader />

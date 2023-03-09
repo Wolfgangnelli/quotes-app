@@ -19,11 +19,13 @@ describe('Login component', () => {
       <Login />
     </Provider>
     );
+    
     expect(screen.getByTestId('login-form')).toBeInTheDocument();
   });
 
   it('submits login form', async () => {
     render(<Login />);
+
     fireEvent.change(screen.getByTestId('email'), { target: { value: 'test@example.com' } });
     fireEvent.change(screen.getByTestId('password'), { target: { value: 'password' } });
     fireEvent.click(screen.getByTestId('submit-button'));

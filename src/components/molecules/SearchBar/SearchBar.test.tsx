@@ -20,7 +20,7 @@ describe('SearchBar', () => {
     });
   });
 
-  test('dispatches searchQuote action on input change', () => {
+  it('dispatches searchQuote action on input change', () => {
     const searchTerm = 'test';
 
     render(
