@@ -17,6 +17,7 @@ const initialState = {
     data: user ? JSON.parse(user) : user,
     loading: false,
     isLoggedIn: user ? true : false,
+    error: null
 };
 
 export const authReducer = (state = initialState, { type, payload }: ActionType) => {
@@ -31,6 +32,7 @@ export const authReducer = (state = initialState, { type, payload }: ActionType)
                 loading: false,
                 data: payload,
                 isLoggedIn: true,
+                error: null
             };
         case CREATE_USER_FAIL:
             return {
@@ -68,7 +70,8 @@ export const authReducer = (state = initialState, { type, payload }: ActionType)
                 ...state,
                 loading: false,
                 isLoggedIn: true,
-                data: payload
+                data: payload,
+                error: null
             };
         case LOGIN_USER_FAIL:
             return {
