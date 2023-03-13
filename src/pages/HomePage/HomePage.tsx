@@ -34,7 +34,7 @@ const HomePage = () => {
       
     }
   }, [data]);
-
+// gestire errore se quote suggested fail (reload app no show modal)
   return error ? (
     <div>{error}</div>
   ) : (

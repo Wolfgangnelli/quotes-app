@@ -11,6 +11,7 @@ import {
 } from '../actions/actionTypes';
 import { ActionType } from '../../utilis/types';
 
+// non conviene fare la duplicazione se ho il db remoto e gestirlo direttamente da là
 const user = localStorage.getItem('user') ? localStorage.getItem('user') : null;
 
 const initialState = {
