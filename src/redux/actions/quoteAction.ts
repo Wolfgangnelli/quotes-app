@@ -20,7 +20,7 @@ export const getQuotes = () => async (dispatch: Dispatch) => {
         });
 
         const queryQuotes = await getDocs(query(collection(fs, 'quotes'), orderBy('createdAt', 'desc')));
-
+        console.log(queryQuotes);
         if(queryQuotes.docs.length > 0) {
             const quotesArray: QuoteType[] = [];
 
@@ -68,7 +68,7 @@ export const addQuote = (quote: QuoteType) => async (dispatch: Dispatch) => {
     }
 };
 
-export const searchQuote = (searchTerm: string) => (dispatch: Dispatch, getState: any) => {
+export const searchQuote = (searchTerm: string) => async (dispatch: Dispatch, getState: any) => {
 
     const { quotes: { data } } = getState();
 

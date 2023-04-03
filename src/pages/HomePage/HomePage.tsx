@@ -18,7 +18,7 @@ const HomePage = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const setfullScreenLoadingActive = useContext(FullScreenLoaderContext);
   const { data, loading, error } = useSelector((state: StoreStateType) => state.suggestedQuotes);
-  const { data: quotesFiltered, loading: loadingQuotesFilterd } = useSelector((state: StoreStateType) => state.quotesFiltered);
+  const { data: quotesFiltered, loading: loadingQuotesFiltered, error: errorQuotesFiltered } = useSelector((state: StoreStateType) => state.quotesFiltered);
   const { data: dataQuotes, loading: loadingQuotes, error: errorQuotes} = useSelector((state: StoreStateType) => state.quotes);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const HomePage = () => {
       
     }
   }, [data]);
-// gestire errore se quote suggested fail (reload app no show modal)
+
   return error ? (
     <div>{error}</div>
   ) : (
@@ -44,7 +44,7 @@ const HomePage = () => {
         <FormQuote />
       </SectionContainer>
       <SectionContainer title='Quote List' searchBar={true}>
-        {(loadingQuotes || loadingQuotesFilterd) ? (<Loader />) : errorQuotes ? (<div>{errorQuotes}</div>) : (<QuotesListing quotes={!!quotesFiltered.length ? quotesFiltered : dataQuotes} />)}
+        {(loadingQuotes || loadingQuotesFiltered) ? (<Loader />) : errorQuotes || errorQuotesFiltered ? (<div>{errorQuotes ?? errorQuotesFiltered}</div>) : (<QuotesListing quotes={!!quotesFiltered.length ? quotesFiltered : dataQuotes} />)}
       </SectionContainer>
       {suggestedQuote && <VerticalCenteredModal show={modalShow} onHide={() => setModalShow(false)} suggetedQuote={suggestedQuote} />}
     </Page>

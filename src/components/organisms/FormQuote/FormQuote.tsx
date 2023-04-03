@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Form } from 'react-bootstrap';
 import { Button, Message } from '../../atoms';
 import { useForm } from 'react-hook-form';
@@ -8,7 +9,15 @@ import { Dispatch } from 'redux';
 import { addQuote, getQuotes } from '../../../redux/actions/quoteAction';
 import { StoreStateType } from '../../../utilis/types';
 
-const FormQuote = () => {
+interface Props {
+  isUpdating?: boolean
+  textQuote?: string
+  authorQuote?: string
+}
+
+const FormQuote = (props: Props) => {
+
+  const { isUpdating, textQuote, authorQuote } = props;
 
     const dispatch: Dispatch<any> = useDispatch();
     const { error } = useSelector((state: StoreStateType) => state.quoteAdd);
@@ -24,8 +33,12 @@ const FormQuote = () => {
       });
 
     const handleSubmitQuote = handleSubmit((data: any) => {
-        dispatch(addQuote(data));
-        dispatch(getQuotes());
+        if(isUpdating) {
+          console.log(data);
+        } else {
+          dispatch(addQuote(data));
+          dispatch(getQuotes());
+        }
         reset();
     });
 
@@ -33,12 +46,12 @@ const FormQuote = () => {
       <Form onSubmit={handleSubmitQuote}>
         <Form.Group className="mb-3">
             <Form.Label>Quote</Form.Label>
-            <Form.Control as="textarea" placeholder="Whatever you are, be a good one." {...register("text")} required />
+            <Form.Control as="textarea" defaultValue={textQuote && textQuote} placeholder="Whatever you are, be a good one." {...register("text")} required />
             {errors.text && <p>{String(errors.text?.message)}</p>}
         </Form.Group>
         <Form.Group className="mb-3">
             <Form.Label>Author</Form.Label>
-            <Form.Control type="text" placeholder="Abraham Lincoln" {...register("author")} />
+            <Form.Control type="text" value={authorQuote && authorQuote} placeholder="Abraham Lincoln" {...register("author")} />
             {errors.author && <p>{String(errors.author?.message)}</p>}
         </Form.Group>
         {error && <Message variant='danger' label={error} />}
